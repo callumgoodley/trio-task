@@ -4,6 +4,8 @@ services:
                 build: ./db
                 command: --default-authentication-plugin=mysql_native_password
                 environment:
+                           MYSQL_USER: callumgoodley
+                           MYSQL_PASSWORD: ${DB_PASSWORD}
                            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
                            MYSQL_DATABASE: flask-db
                 ports:
