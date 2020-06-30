@@ -1,10 +1,14 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from os import getenv
+
+
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:' + str(getenv('DB_PASSWORD')) + '@mysql:3306/flask-db'
+
 db = SQLAlchemy(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://callumgoodley:hello123@mysql:3306/flask-db'
 
 class Users(db.Model):
 	id = db.Column(db.Integer, primary_key=True)

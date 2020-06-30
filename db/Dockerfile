@@ -1,5 +1,5 @@
 # Derived from official mysql image (our base image)
-FROM mysql:latest
+FROM mysql:5.7
 
 
 # Add a database

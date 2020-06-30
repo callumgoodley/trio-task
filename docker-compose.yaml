@@ -1,24 +1,36 @@
 version: "3.7"
 services:
+        mysql:
+                build: ./db
+                command: --default-authentication-plugin=mysql_native_password
+                environment:
+                           MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+                           MYSQL_DATABASE: flask-db
+                ports:
+                        - target: 3306
+                          published: 3306
+                          protocol: tcp
+
         flask-app:
                 build: ./flask-app
+                environment: 
+                          DB_PASSWORD: ${DB_PASSWORD}
                 ports:
                         - target: 5000
                           published: 5000
                           protocol: tcp
+                depends_on:
+                        - mysql
         nginx:
                 image: nginx:latest
                 ports:
                         - target: 80
                           published: 80
                           protocol: tcp
+
+                depends_on: 
+                        - flask-app
                 volumes: 
                         - type: bind
                           source: ./nginx/nginx.conf
                           target: /etc/nginx/nginx.conf
-        mysql:
-                build: ./db
-                ports:
-                        - target: 3306
-                          published: 3306
-                          protocol: tcp
