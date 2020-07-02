@@ -4,8 +4,7 @@ from os import getenv
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + str(getenv('DB_USERNAME')+ ':' + str(getenv('DB_PASSWORD')) + '@mysql:3306/flask-db'
-
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + str(getenv('DB_USERNAME'))+ ':' + str(getenv('DB_PASSWORD')) + '@mysql:3306/flask-db'
 db = SQLAlchemy(app)
 
 
@@ -24,5 +23,5 @@ def hello():
   return render_template('home.html', data1=data1)
 
 if __name__=='__main__':
-  app.run(host='0.0.0.0', port=5000, debug=True)
+  app.run(host='0.0.0.0', port=5001, debug=True)
 

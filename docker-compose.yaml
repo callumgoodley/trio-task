@@ -1,8 +1,8 @@
 version: "3.7"
 services:
         mysql:
-                build: ./db
-                command: --default-authentication-plugin=mysql_native_password
+                image: callumgoodley/trio-task_mysql
+                build: ./db 
                 environment:
                            MYSQL_USER: ${DB_USERNAME}
                            MYSQL_PASSWORD: ${DB_PASSWORD}
@@ -14,12 +14,14 @@ services:
                           protocol: tcp
 
         flask-app:
+                image: callumgoodley/trio-task_flask-app
                 build: ./flask-app
-                environment: 
+                environment:
+                          DB_USERNAME: ${DB_USERNAME} 
                           DB_PASSWORD: ${DB_PASSWORD}
                 ports:
-                        - target: 5000
-                          published: 5000
+                        - target: 5001
+                          published: 5001
                           protocol: tcp
                 depends_on:
                         - mysql
